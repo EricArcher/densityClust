@@ -28,7 +28,7 @@ Imports:
     grDevices,
     gridExtra,
     RColorBrewer
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/thomasp85/densityClust
 BugReports: https://github.com/thomasp85/densityClust/issues

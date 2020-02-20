@@ -4,8 +4,8 @@
 \alias{plotDensityClust}
 \title{Plot densityCluster results}
 \usage{
-plotDensityClust(x, type = "all", n = 20, mds = NULL, dim.x = 1,
-  dim.y = 2, col = NULL, alpha = 0.8)
+plotDensityClust(x, type = "all", n = 20, scale.gamma = T,
+  mds = NULL, dim.x = 1, dim.y = 2, col = NULL, alpha = 0.8)
 }
 \arguments{
 \item{x}{A densityCluster object as produced by \code{\link{densityClust}}}
@@ -13,12 +13,15 @@ plotDensityClust(x, type = "all", n = 20, mds = NULL, dim.x = 1,
 \item{type}{A character vector designating which figures to produce. Valid
 options include \code{"dg"} for a decision graph of \eqn{\delta} vs.
 \eqn{\rho}, \code{"gg"} for a gamma graph depicting the decrease of
-\eqn{\gamma} (= \eqn{\delta} * \eqn{\rho}) across samples, and \code{"mds"},
-for a Multi-Dimensional Scaling (MDS) plot of observations. Any combination
-of these three can be included in the vector, or to produce all plots,
-specify \code{type = "all"}.}
+\eqn{\gamma} (= \eqn{\delta} * \eqn{\rho}) across samples,
+and \code{"mds"}, for a Multi-Dimensional Scaling (MDS) plot of
+observations. Any combination of these three can be included in the vector,
+or to produce all plots, specify \code{type = "all"}.}
 
 \item{n}{Number of observations to plot in the gamma graph.}
+
+\item{scale.gamma}{Calculate \eqn{\gamma} from \eqn{\delta} and \eqn{\rho}
+that have been rescaled to have a mean of 0 and standard deviation of 1?}
 
 \item{mds}{A matrix of scores for observations from a Principal Components
 Analysis or MDS. If omitted, and a MDS plot has been requested, one will

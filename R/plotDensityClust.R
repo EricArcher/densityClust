@@ -7,11 +7,13 @@
 #' @param type A character vector designating which figures to produce. Valid
 #'   options include \code{"dg"} for a decision graph of \eqn{\delta} vs.
 #'   \eqn{\rho}, \code{"gg"} for a gamma graph depicting the decrease of
-#'   \eqn{\gamma} (= \eqn{\delta} * \eqn{\rho}) across samples, and \code{"mds"},
-#'   for a Multi-Dimensional Scaling (MDS) plot of observations. Any combination
-#'   of these three can be included in the vector, or to produce all plots,
-#'   specify \code{type = "all"}.
+#'   \eqn{\gamma} (= \eqn{\delta} * \eqn{\rho}) across samples,
+#'   and \code{"mds"}, for a Multi-Dimensional Scaling (MDS) plot of
+#'   observations. Any combination of these three can be included in the vector,
+#'   or to produce all plots, specify \code{type = "all"}.
 #' @param n Number of observations to plot in the gamma graph.
+#' @param scale.gamma Calculate \eqn{\gamma} from \eqn{\delta} and \eqn{\rho}
+#'   that have been rescaled to have a mean of 0 and standard deviation of 1?
 #' @param mds A matrix of scores for observations from a Principal Components
 #'   Analysis or MDS. If omitted, and a MDS plot has been requested, one will
 #'   be calculated.
@@ -60,7 +62,7 @@
 #' @importFrom grDevices rainbow
 #' @export
 #'
-plotDensityClust <- function(x, type = "all", n = 20,
+plotDensityClust <- function(x, type = "all", n = 20, scale.gamma = T,
                              mds = NULL, dim.x = 1, dim.y = 2,
                              col = NULL, alpha = 0.8) {
 
@@ -68,7 +70,8 @@ plotDensityClust <- function(x, type = "all", n = 20,
   if(any(pmatch(type, "all", nomatch = 0))) type <- c("dg", "gg", "mds")
 
   df <- data.frame(
-    rho = x$rho, delta = x$delta, gamma = x$rho * x$delta,
+    rho = x$rho, delta = x$delta, 
+    gamma = if(scale.gamma) scale(x$rho) * scale(x$delta) else x$rho * x$delta,
     peaks = FALSE, cluster = factor(x$clusters), halo = x$halo
   )
   df$peaks[x$peaks] <- TRUE
